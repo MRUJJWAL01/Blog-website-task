@@ -81,14 +81,16 @@ const EditPost = () => {
       setSubmitting(true);
       const data = new FormData();
       data.append('title', formData.title);
+      
       data.append('content', formData.content);
-
+      
       if (imageFile) {
-        data.append('image', imageFile);
-      } else if (!existingImage && !imageFile) {
+        data.append('images', imageFile);
+      }else if (!existingImage && !imageFile) {
         data.append('removeImage', 'true');
       }
 
+      
       await api.put(`/api/post/${id}`, data, {
         headers: {
           'Content-Type': 'multipart/form-data',

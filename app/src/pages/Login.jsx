@@ -32,9 +32,8 @@ const Login = () => {
     try {
       setLoading(true);
       setError(null);
-      console.log(formData);
       
-      await login(formData);
+      await login({formData});
       navigate('/');
     } catch (err) {
       setError(err.response?.data?.message || 'Invalid emailOrUsername or password');

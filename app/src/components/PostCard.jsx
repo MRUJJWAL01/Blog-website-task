@@ -2,8 +2,7 @@ import { Link } from 'react-router';
 import { Calendar, User } from 'lucide-react';
 
 const PostCard = ({ post }) => {
-  console.log(post);
-  console.log(post.imageURL);
+  
   
   
   const formatDate = (dateString) => {
@@ -16,10 +15,10 @@ const PostCard = ({ post }) => {
       to={`/posts/${post._id}`}
       className="block bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden"
     >
-      {post.image && (
+      {post.imageURL && (
         <div className="h-48 overflow-hidden">
           <img
-            src={post.imageURL}
+            src={post.imageURL[0]}
             alt={post.title}
             className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
           />

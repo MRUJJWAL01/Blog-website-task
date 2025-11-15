@@ -27,8 +27,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const login = async ({formdata}) => {
-    const response = await api.post('/api/auth/login',formdata);
+  const login = async ({formData}) => {
+    
+    const response = await api.post('/api/auth/login',formData);
+    
     if (response.data && response.data.user) {
       setUser(response.data.user);
       setIsAuthenticated(true);

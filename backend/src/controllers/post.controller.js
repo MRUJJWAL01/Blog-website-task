@@ -4,6 +4,7 @@ const uploadImage = require("../services/storage.services");
 const createPost = async (req, res) => {
   try {
     const { title, content } = req.body;
+
     if (!req.files) {
       return res.status(404).json({
         msg: "Image is required",
@@ -87,11 +88,26 @@ const updatePost = async (req, res) => {
 
     const post = req.post;
     const { title, content } = req.body;
+    if (!req.files) {
+      return res.status(404).json({
+        msg: "Image is required",
+      });
+    }
+    let uploadedUrlArr = await Promise.all(
+      req.files.map(
+        async (element) =>
+          await uploadImage(element.buffer, element.originalname)
+      )
+    );
 
-    if (title) post.title = title;
-    if (content) post.content = content;
+    // if (title) post.title = title;
+    // if (content) post.content = content;
 
-    await post.save();
+    await postModel.findByIdAndUpdate(
+      { _id: post._id },
+      { title, content, imageURL: uploadedUrlArr.map((elem) => elem.url) }
+    );
+
     res.json({ message: "Post updated", post });
   } catch (err) {
     console.error("updatePost err", err);
@@ -102,7 +118,8 @@ const updatePost = async (req, res) => {
 const deletePost = async (req, res) => {
   try {
     const post = req.post;
-    await post.remove();
+
+    await postModel.deleteOne({ _id: post._id });
     res.json({ message: "Post deleted" });
   } catch (err) {
     console.error("deletePost err", err);

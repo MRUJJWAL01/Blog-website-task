@@ -37,7 +37,7 @@ router.post(
       .trim()
       .isLength({ min: 5, max: 120 })
       .withMessage("title 5-120 chars"),
-    body("content").isLength({ min: 50 }).withMessage("content min 50 chars"),
+    body("content").isLength({ min: 15 }).withMessage("content min 50 chars"),
   ],upload.array("images",5),
   postCtrl.createPost
 );
@@ -48,7 +48,7 @@ router.post(
 router.put(
   "/:id",
   authenticate,
-  ensureOwner,
+  ensureOwner,upload.array("images",5),
   [
     body("title")
       .optional()

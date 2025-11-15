@@ -9,6 +9,7 @@ import Toast from '../components/Toast';
 const PostDetail = () => {
   const { id } = useParams();
   
+  
   const navigate = useNavigate();
   const { user, isAuthenticated } = useContext(AuthContext);
   const [post, setPost] = useState(null);
@@ -25,7 +26,6 @@ const PostDetail = () => {
     try {
       setLoading(true);
       const response = await api.get(`/api/post/${id}`);
-      console.log(response.data.post.imageURL[0]);
       
       setPost(response.data.post);
     } catch (err) {
@@ -61,7 +61,7 @@ const PostDetail = () => {
         <p className="text-xl text-gray-600">Post not found</p>
       </div>
     );
-  }
+  } 
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
@@ -96,7 +96,7 @@ const PostDetail = () => {
               {isOwner && (
                 <div className="flex space-x-2">
                   <button
-                    onClick={() => navigate(`/edit/${post.id}`)}
+                    onClick={() => navigate(`/edit/${post._id}`)}
                     className="flex items-center space-x-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                   >
                     <Edit className="w-4 h-4" />

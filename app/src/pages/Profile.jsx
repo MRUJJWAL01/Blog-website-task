@@ -25,7 +25,8 @@ const Profile = () => {
       const response = await api.get('/api/post', {
         params: { userId: user?.id },
       });
-      setPosts(response.data.posts || response.data);
+      
+      setPosts(response.data.items || response.data);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to fetch posts');
     } finally {
@@ -86,9 +87,9 @@ const Profile = () => {
           </div>
         ) : (
           <div className="space-y-4">
-            {posts.map((post) => (
+            {posts.map((post,index) => (
               <div
-                key={post.id}
+                key={post._id}
                 className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition"
               >
                 <div className="flex flex-col md:flex-row">
@@ -105,7 +106,7 @@ const Profile = () => {
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
                         <h3
-                          onClick={() => navigate(`/posts/${post.id}`)}
+                          onClick={() => navigate(`/posts/${post._id}`)}
                           className="text-xl font-bold text-gray-900 mb-2 cursor-pointer hover:text-blue-600 transition"
                         >
                           {post.title}
@@ -122,7 +123,7 @@ const Profile = () => {
                           <Edit className="w-5 h-5" />
                         </button>
                         <button
-                          onClick={() => setDeleteModal({ show: true, postId: post.id })}
+                          onClick={() => setDeleteModal({ show: true, postId: post._id })}
                           className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition"
                           title="Delete post"
                         >

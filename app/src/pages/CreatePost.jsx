@@ -28,7 +28,6 @@ const CreatePost = () => {
     if (file) {
       setImageFile(file);
       const reader = new FileReader();
-      console.log(reader);
       
       reader.onloadend = () => {
         setImagePreview(reader.result);
@@ -57,16 +56,17 @@ const CreatePost = () => {
       data.append('title', formData.title);
       data.append('content', formData.content);
       if (imageFile) {
-        data.append('image', imageFile);
+        data.append('images', imageFile);
       }
-
+      
       const response = await api.post('/api/post/create', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
+      
 
-      navigate(`/posts/${response.data.id || response.data.post?.id}`);
+      navigate(`/posts/${response.data.post._id || response.data.post?._id}`);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to create post');
     } finally {
