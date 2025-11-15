@@ -8,7 +8,7 @@ const upload = require("../utils/mutler");
 const router = express.Router();
 
 /**
- * GET /api/posts
+ * GET /api/post
  * optional: ?search=&page=&limit=
  */
 router.get(
@@ -22,12 +22,12 @@ router.get(
 );
 
 /**
- * GET /api/posts/:id  (id can be ObjectId or slug)
+ * GET /api/post/:id  (id can be ObjectId or slug)
  */
 router.get("/:id", postCtrl.getPost);
 
 /**
- * POST /api/posts  (auth required)
+ * POST /api/post  (auth required)
  */
 router.post(
   "/create",
@@ -43,7 +43,7 @@ router.post(
 );
 
 /**
- * PUT /api/posts/:id  (auth + owner)
+ * PUT /api/post/:id  (auth + owner)
  */
 router.put(
   "/:id",
@@ -64,7 +64,7 @@ router.put(
 );
 
 /**
- * DELETE /api/posts/:id  (auth + owner)
+ * DELETE /api/post/:id  (auth + owner)
  */
 router.delete("/:id", authenticate, ensureOwner, postCtrl.deletePost);
 

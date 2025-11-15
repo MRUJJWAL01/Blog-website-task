@@ -22,7 +22,7 @@ const Profile = () => {
   const fetchUserPosts = async () => {
     try {
       setLoading(true);
-      const response = await api.get('/api/posts', {
+      const response = await api.get('/api/post', {
         params: { userId: user?.id },
       });
       setPosts(response.data.posts || response.data);
@@ -35,7 +35,7 @@ const Profile = () => {
 
   const handleDelete = async (postId) => {
     try {
-      await api.delete(`/api/posts/${postId}`);
+      await api.delete(`/api/post/${postId}`);
       setPosts(posts.filter(post => post.id !== postId));
       setSuccess('Post deleted successfully');
       setDeleteModal({ show: false, postId: null });

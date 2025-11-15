@@ -8,6 +8,7 @@ import Toast from '../components/Toast';
 
 const PostDetail = () => {
   const { id } = useParams();
+  
   const navigate = useNavigate();
   const { user, isAuthenticated } = useContext(AuthContext);
   const [post, setPost] = useState(null);
@@ -23,8 +24,10 @@ const PostDetail = () => {
   const fetchPost = async () => {
     try {
       setLoading(true);
-      const response = await api.get(`/api/posts/${id}`);
-      setPost(response.data);
+      const response = await api.get(`/api/post/${id}`);
+      console.log(response.data.post.imageURL[0]);
+      
+      setPost(response.data.post);
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to fetch post');
     } finally {
@@ -34,7 +37,7 @@ const PostDetail = () => {
 
   const handleDelete = async () => {
     try {
-      await api.delete(`/api/posts/${id}`);
+      await api.delete(`/api/post/${id}`);
       setSuccess('Post deleted successfully');
       setTimeout(() => navigate('/'), 1500);
     } catch (err) {
@@ -67,10 +70,10 @@ const PostDetail = () => {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <article className="bg-white rounded-lg shadow-md overflow-hidden">
-          {post.image && (
+          {post.imageURL && (
             <div className="w-full h-96 overflow-hidden">
               <img
-                src={post.image}
+                src={post.imageURL[0]}
                 alt={post.title}
                 className="w-full h-full object-cover"
               />

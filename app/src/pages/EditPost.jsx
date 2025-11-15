@@ -27,7 +27,7 @@ const EditPost = () => {
   const fetchPost = async () => {
     try {
       setLoading(true);
-      const response = await api.get(`/api/posts/${id}`);
+      const response = await api.get(`/api/post/${id}`);
       const post = response.data;
       setFormData({
         title: post.title,
@@ -89,7 +89,7 @@ const EditPost = () => {
         data.append('removeImage', 'true');
       }
 
-      await api.put(`/api/posts/${id}`, data, {
+      await api.put(`/api/post/${id}`, data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

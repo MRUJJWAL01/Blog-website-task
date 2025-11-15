@@ -28,10 +28,13 @@ const CreatePost = () => {
     if (file) {
       setImageFile(file);
       const reader = new FileReader();
+      console.log(reader);
+      
       reader.onloadend = () => {
         setImagePreview(reader.result);
       };
       reader.readAsDataURL(file);
+
     }
   };
 
@@ -57,7 +60,7 @@ const CreatePost = () => {
         data.append('image', imageFile);
       }
 
-      const response = await api.post('/api/posts', data, {
+      const response = await api.post('/api/post/create', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

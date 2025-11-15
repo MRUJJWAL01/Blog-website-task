@@ -21,16 +21,18 @@ const Home = () => {
   const fetchPosts = async () => {
     try {
       setLoading(true);
-      const response = await api.get('/api/posts', {
+      const response = await api.get('/api/post', {
         params: {
           page: currentPage,
           limit: postsPerPage,
           search: searchQuery,
         },
       });
+      
 
-      setPosts(response.data.posts || response.data);
+      setPosts(response.data.items || response.data);
       setTotalPages(response.data.totalPages || 1);
+      
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to fetch posts');
     } finally {
@@ -76,7 +78,7 @@ const Home = () => {
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               {posts.map((post) => (
-                <PostCard key={post.id} post={post} />
+                <PostCard key={post._id} post={post} />
               ))}
             </div>
 

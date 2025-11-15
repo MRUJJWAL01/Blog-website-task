@@ -8,7 +8,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
   const [formData, setFormData] = useState({
-    email: '',
+    emailOrUsername: '',
     password: '',
   });
   const [loading, setLoading] = useState(false);
@@ -24,7 +24,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.email || !formData.password) {
+    if (!formData.emailOrUsername || !formData.password) {
       setError('All fields are required');
       return;
     }
@@ -32,10 +32,12 @@ const Login = () => {
     try {
       setLoading(true);
       setError(null);
-      await login(formData.email, formData.password);
+      console.log(formData);
+      
+      await login(formData);
       navigate('/');
     } catch (err) {
-      setError(err.response?.data?.message || 'Invalid email or password');
+      setError(err.response?.data?.message || 'Invalid emailOrUsername or password');
     } finally {
       setLoading(false);
     }
@@ -56,14 +58,14 @@ const Login = () => {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-              Email
+            <label htmlFor="emailOrUsername" className="block text-sm font-medium text-gray-700 mb-2">
+              emailOrUsername
             </label>
             <input
-              type="email"
+              type="text"
               id="email"
-              name="email"
-              value={formData.email}
+              name="emailOrUsername"
+              value={formData.emailOrUsername}
               onChange={handleChange}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="you@example.com"
