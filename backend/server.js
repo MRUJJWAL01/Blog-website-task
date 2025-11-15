@@ -5,6 +5,7 @@ const cors = require("cors");
 const connectDb = require("./src/config/db");
 const AuthRoute = require("./src/routes/auth.routes");
 const PostRoute = require("./src/routes/post.routes");
+const UserRoute = require("./src/routes/user.route");
 const cookieParser = require("cookie-parser");
 const app = express();
 const port = process.env.PORT || 3000;
@@ -21,6 +22,7 @@ app.use(
 
 app.use("/api/auth", AuthRoute);
 app.use("/api/post",PostRoute)
+app.use("/api/user",UserRoute)
 
 app.listen(port, ()=>{
     console.log("server is running on port ",port);

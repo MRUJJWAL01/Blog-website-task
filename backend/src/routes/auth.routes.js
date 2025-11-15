@@ -34,6 +34,8 @@ router.put(
   ],
   authCtrl.updateProfile
 );
+
 router.post("/logout", authCtrl.logoutController);
+
 
 module.exports = router;

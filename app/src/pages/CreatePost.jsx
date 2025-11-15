@@ -25,6 +25,7 @@ const CreatePost = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+    
     if (file) {
       setImageFile(file);
       const reader = new FileReader();
@@ -58,7 +59,7 @@ const CreatePost = () => {
       if (imageFile) {
         data.append('images', imageFile);
       }
-      
+
       const response = await api.post('/api/post/create', data, {
         headers: {
           'Content-Type': 'multipart/form-data',

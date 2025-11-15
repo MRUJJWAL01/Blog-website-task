@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
 const postModel = require("../models/post.model");
 const uploadImage = require("../services/storage.services");
+const userModel = require("../models/user.model");
 const createPost = async (req, res) => {
   try {
     const { title, content } = req.body;
@@ -25,6 +26,11 @@ const createPost = async (req, res) => {
       username,
       ownerId,
     });
+      let user = await userModel.findById(req.user.userId);      
+      console.log(user);
+      
+    user?.post?.push(post._id);
+    await user.save();
     await post.save();
     res.status(201).json({ message: "Post created", post });
   } catch (err) {
