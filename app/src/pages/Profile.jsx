@@ -127,7 +127,7 @@ const Profile = () => {
               title="Click to change profile picture"
             >
               {/* avatar image or fallback icon */}
-              {user?.dp ? (
+              {user.dp ? (
                 <img src={user.dp} alt="avatar" className="w-full h-full object-cover" />
               ) : (
                 <User className="w-10 h-10 text-blue-600" />

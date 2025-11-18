@@ -13,7 +13,7 @@ const userDpController = async (req, res) => {
         msg: "file not found",
       });
     }
-    // console.log(req.file)
+  
     let imageUrl = await uploadImage(req.file.buffer, req.file.originalname);
     console.log(imageUrl);
     
