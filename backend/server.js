@@ -13,12 +13,23 @@ connectDb();
 app.use(cookieParser());
 
 app.use(express.json());
+const allowedOrigins = [
+  'http://localhost:5173',                      // local React dev
+  'https://blog-website-task-flax.vercel.app', // your Vercel frontend
+  process.env.CLIENT_URL,                      // optional extra from .env
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [
+      "https://blog-website-task-flax.vercel.app",
+      "http://localhost:5173",
+    ],
     credentials: true,
   })
 );
+
+
 
 app.use("/api/auth", AuthRoute);
 app.use("/api/post",PostRoute)
